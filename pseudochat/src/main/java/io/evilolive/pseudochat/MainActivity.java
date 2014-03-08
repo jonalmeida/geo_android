@@ -54,7 +54,7 @@ public class MainActivity extends ActionBarActivity
                     "JonAndroid", 123, 456, 12346);
 
             try {
-                msometing.postData(mymessage);
+                something.postData(my_message);
             } catch (IOException e) {
                 e.printStackTrace();
             }
