@@ -12,16 +12,16 @@ public final class Message {
 
     private String _msg_text;
     private String _nick;
-    private float _latitude;
-    private float _longitude;
+    private double _latitude;
+    private double _longitude;
     private float _timestamp;
     private boolean _set;
 
     // Each message needs to be constructed with these basic requirements
     public Message( String msg_text,
                     String nick,
-                    float  latitude,
-                    float  longitude,
+                    double  latitude,
+                    double  longitude,
                     float  timestamp) {
         if(!_set) {
             setMsgText(msg_text);
@@ -42,11 +42,11 @@ public final class Message {
         this._nick = _nick;
     }
 
-    private void setLatitude(float _latitude) {
+    private void setLatitude(double _latitude) {
         this._latitude = _latitude;
     }
 
-    private void setLongitude(float _longitude) {
+    private void setLongitude(double _longitude) {
         this._longitude = _longitude;
     }
 
@@ -62,11 +62,11 @@ public final class Message {
         return _nick;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return _latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return _longitude;
     }
 

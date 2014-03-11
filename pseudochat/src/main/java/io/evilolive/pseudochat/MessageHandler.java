@@ -1,15 +1,25 @@
 package io.evilolive.pseudochat;
 
+import android.content.Context;
+import android.os.Looper;
+import android.util.Log;
+
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  * Created by jonathan on 07/03/14.
@@ -23,11 +33,14 @@ public class MessageHandler {
 
     private HttpClient httpclient;
     private HttpPost httppost;
+    private HttpResponse httpresponse;
+    private Context context;
 
     public MessageHandler() {
         // Create a new HttpClient and Post Header
         httpclient = new DefaultHttpClient();
         httppost = new HttpPost("http://lemuranon.herokuapp.com/messages");
+        httpresponse = null;
     }
 
     protected JSONObject getJsonObjectFromMessage(Message message) throws JSONException {
@@ -36,46 +49,83 @@ public class MessageHandler {
         res.put(MessageAttribute.NICK, message.getNick());
         res.put(MessageAttribute.LATITUDE, message.getLatitude());
         res.put(MessageAttribute.LONGITUDE, message.getLongitude());
-//        res.put(MessageAttribute.TIMESTAMP, message.getTimestamp());
+        res.put(MessageAttribute.TIMESTAMP, message.getTimestamp());
 
         return res;
     }
 
-    public HttpResponse postData(Message message) throws IOException {
+    public void postData(final Message message) throws IOException {
+        final String[] foo = new String[1];
 
-        HttpResponse resp = null;
+        final Thread t = new Thread() {
+            public void run() {
+                // Example data
+                // {
+                //      "msg": "Test message",
+                //      "nick": "Foobar",
+                //      "location[lat]": 42.3025199,
+                //      "location[lon]": -83.0437328,
+                //      "timestampLastMsg": 139422699124321
+                // }
 
-        try {
-            // Example JSON data
-            // {
-            //      "msg": "Test2",
-            //      "nick": "jonathan",
-            //      "location[lat]": 42.30752570000001,
-            //      "location[lon]": -83.0682726,
-            //      "timestampLastMsg": 139422699124321
-            // }
-            JSONObject holder = getJsonObjectFromMessage(message);
+                Looper.prepare(); //For Preparing Message Pool for the child Thread
+                ArrayList<NameValuePair> postParameters;
 
-            // Passes the results to a string builder/entity
-            StringEntity se = new StringEntity(holder.toString());
+                postParameters = new ArrayList<NameValuePair>();
+                postParameters.add(
+                        new BasicNameValuePair(
+                                MessageAttribute.MSG_TEXT, message.getMsgText())
+                );
+                postParameters.add(
+                        new BasicNameValuePair(
+                                MessageAttribute.NICK, message.getNick())
+                );
+                postParameters.add(
+                        new BasicNameValuePair(
+                                MessageAttribute.LATITUDE, Double.toString(message.getLatitude()))
+                );
+                postParameters.add(
+                        new BasicNameValuePair(
+                                MessageAttribute.LONGITUDE, Double.toString(message.getLongitude()))
+                );
+                postParameters.add(
+                        new BasicNameValuePair(
+                                MessageAttribute.TIMESTAMP, Float.toString(message.getTimestamp()))
+                );
 
-            // Sets the post request as the resulting string
-            this.httppost.setEntity(se);
-            //sets a request header so the page receiving the request
-            //will know what to do with it
-            this.httppost.setHeader("Accept", "application/json");
-            this.httppost.setHeader("Content-type", "application/json");
-            // Execute HTTP Post Request
-            resp = this.httpclient.execute(httppost);
-        } catch (ClientProtocolException e) { // TODO: Add proper exception handling instead of only printing trace
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                try {
+                    httppost.setEntity(new UrlEncodedFormEntity(postParameters));
+                    httpresponse = null; // Set to null before making a new post
+                    httpresponse = httpclient.execute(httppost);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
 
-        return resp;
+                /*Checking response */
+                if(httpresponse!=null){
+                    InputStream in = null;
+                    try {
+                        // Get the data in the entity
+                        // TODO: Send response to a Cursor to be handled
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(httpresponse.getEntity().getContent(), "UTF-8"));
+                        StringBuilder builder = new StringBuilder();
+                        for (String line = null; (line = reader.readLine()) != null;) {
+                            builder.append(line).append("\n");
+                        }
+                        JSONTokener tokener = new JSONTokener(builder.toString());
+                        JSONObject finaljson = new JSONObject(tokener);
+                        Log.v("JSON OUTPUT: ", finaljson.toString());
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                Looper.loop(); //Loop in the message queue
+            }
+        };
+        t.start();
     }
-
 }

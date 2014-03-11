@@ -5,24 +5,23 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.lang.*;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
+    private static final String MAIN_ACTIVITY = "MainActivity";
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -32,6 +31,8 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+
+    private LocationHandler myLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +48,7 @@ public class MainActivity extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        // FOR TESTING ONLY
-        {
-            MessageHandler something = new MessageHandler();
-            Message my_message = new Message("Test message from Android",
-                    "JonAndroid", 123, 456, 12346);
-
-            try {
-                something.postData(my_message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        myLocation = new LocationHandler(this);
     }
 
     @Override
@@ -159,4 +149,31 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+    public void sendMessage(View view) {
+        Log.v(MAIN_ACTIVITY, "button pressed.");
+        // FOR TESTING ONLY
+        {
+            EditText msg = (EditText) findViewById(R.id.editText_msg);
+            EditText nick = (EditText) findViewById(R.id.editText_nick);
+            MessageHandler something = new MessageHandler();
+            if(myLocation == null) {
+                Log.v(MAIN_ACTIVITY, "handler is null.");
+                return;
+            }
+            Message my_message = new Message(
+                    msg.getText().toString(),
+                    nick.getText().toString(),
+                    myLocation.getLocation().getLatitude(),
+                    myLocation.getLocation().getLongitude(),
+                    0
+            );
+
+            try {
+                 something.postData(my_message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            TextView text = (TextView) findViewById(R.id.textView_response_output);
+        }
+    }
 }

@@ -14,11 +14,51 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"></LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Enter Nick"
+            android:id="@+id/textView_enterNick" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send Test"
+            android:id="@+id/button_send"
+            android:onClick="sendMessage"
+            android:layout_gravity="right|bottom" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Response"
+            android:id="@+id/textView_response"
+            android:layout_gravity="left|center_vertical" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:id="@+id/editText_nick"
+            android:layout_gravity="right|top" />
+
+        <EditText
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:id="@+id/editText_msg"
+            android:layout_gravity="left|bottom" />
+
+        <TextView
+            android:layout_width="225dp"
+            android:layout_height="142dp"
+            android:id="@+id/textView_response_output"
+            android:layout_gravity="right|center_vertical"
+            android:inputType="text" />
+
     </FrameLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat

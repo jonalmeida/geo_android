@@ -3,11 +3,11 @@ package io.evilolive.pseudochat;
 /**
  * Created by jonathan on 07/03/14.
  */
-public class MessageAttribute {
+public final class MessageAttribute {
 
-    public static final String MSG_TEXT = "msg";
-    public static final String NICK = "nick";
-    public static final String LATITUDE = "location[lat]";
-    public static final String LONGITUDE = "location[lon]";
-    public static final String TIMESTAMP = "timestampLastMsg";
+    public static final java.lang.String MSG_TEXT = "msg";
+    public static final java.lang.String NICK = "nick";
+    public static final java.lang.String LATITUDE = "location[lat]";
+    public static final java.lang.String LONGITUDE = "location[lon]";
+    public static final java.lang.String TIMESTAMP = "timestampLastMsg";
 }
