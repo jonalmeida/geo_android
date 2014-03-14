@@ -54,6 +54,7 @@ public class MessageHandler {
         return res;
     }
 
+    // TODO: Make this private, only API calls should be public
     public void postData(final Message message) throws IOException {
         final String[] foo = new String[1];
 
@@ -128,4 +129,6 @@ public class MessageHandler {
         };
         t.start();
     }
+
+    public void send(Message message) { } // TODO: Finish proper interface implementation
 }
