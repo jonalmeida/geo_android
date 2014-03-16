@@ -1,7 +1,7 @@
 package io.evilolive.pseudochat;
 
 /**
- * Created by jonathan on 07/03/14.
+ * Created by Jonathan Almeida on 07/03/14.
  */
 public final class MessageAttribute {
 

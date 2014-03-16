@@ -11,7 +11,7 @@ import android.util.Log;
 import java.util.Date;
 
 /**
- * Created by jonathan on 10/03/14.
+ * Created by Jonathan Almeida on 10/03/14.
  */
 public class LocationHandler {
     private static final String LOCATION_HANDLER = "LocationHandler";

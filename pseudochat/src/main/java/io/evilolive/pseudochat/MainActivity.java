@@ -78,11 +78,7 @@ public class MainActivity extends ActionBarActivity {
                     0
             );
 
-            try {
-                 something.postData(my_message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            something.send(my_message);
             TextView text = (TextView) findViewById(R.id.textView_response_output);
         }
     }

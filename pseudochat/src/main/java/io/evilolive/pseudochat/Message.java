@@ -1,7 +1,7 @@
 package io.evilolive.pseudochat;
 
 /**
- * Created by jonathan on 07/03/14.
+ * Created by Jonathan Almeida on 07/03/14.
  */
 
     // TODO:    Create a return if the message was created successfully

@@ -1,6 +1,5 @@
 package io.evilolive.pseudochat;
 
-import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
@@ -22,19 +21,18 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * Created by jonathan on 07/03/14.
+ * Created by Jonathan Almeida on 07/03/14.
  */
 
     // This class is meant to actually send a message
     // You should only need one instance of it
     // TODO: Consider making this a singleton
 
-public class MessageHandler {
+public class MessageHandler implements MessageSender {
 
     private HttpClient httpclient;
     private HttpPost httppost;
     private HttpResponse httpresponse;
-    private Context context;
 
     public MessageHandler() {
         // Create a new HttpClient and Post Header
@@ -54,9 +52,8 @@ public class MessageHandler {
         return res;
     }
 
-    // TODO: Make this private, only API calls should be public
-    public void postData(final Message message) throws IOException {
-        final String[] foo = new String[1];
+    @Override
+    public void send(final Message message) {
 
         final Thread t = new Thread() {
             public void run() {
@@ -104,7 +101,6 @@ public class MessageHandler {
 
                 /*Checking response */
                 if(httpresponse!=null){
-                    InputStream in = null;
                     try {
                         // Get the data in the entity
                         // TODO: Send response to a Cursor to be handled
@@ -129,6 +125,4 @@ public class MessageHandler {
         };
         t.start();
     }
-
-    public void send(Message message) { } // TODO: Finish proper interface implementation
 }
