@@ -10,4 +10,5 @@ public final class MessageAttribute {
     public static final java.lang.String LATITUDE = "location[lat]";
     public static final java.lang.String LONGITUDE = "location[lon]";
     public static final java.lang.String TIMESTAMP = "timestampLastMsg";
+
 }
