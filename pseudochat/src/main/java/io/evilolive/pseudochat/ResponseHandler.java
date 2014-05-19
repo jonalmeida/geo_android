@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by jonathan on 2014-05-19.
+ * Created by Jonathan Almeida on 2014-05-19.
  */
 public class ResponseHandler implements Map {
     private static ResponseHandler ourInstance = new ResponseHandler();
