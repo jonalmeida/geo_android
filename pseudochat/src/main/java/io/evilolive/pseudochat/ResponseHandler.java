@@ -1,5 +1,7 @@
 package io.evilolive.pseudochat;
 
+import org.json.JSONObject;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +16,12 @@ public class ResponseHandler implements Map {
         return ourInstance;
     }
 
-    private ResponseHandler() {
+    private ResponseHandler(JSONObject resp) {
+        getInstance().parseResponse(resp);
+    }
+
+    private void parseResponse(JSONObject resp) {
+
     }
 
     @Override
@@ -53,14 +60,12 @@ public class ResponseHandler implements Map {
     }
 
     @Override
-    public Object put(Object o, Object o2) {
-        return null;
+    public Object put(long o, Message o2) {
+        return this.put(o, o2); // This can't be right..
     }
 
     @Override
-    public void putAll(Map map) {
-
-    }
+    public void putAll(Map map) { }
 
     @Override
     public Object remove(Object o) {
@@ -84,7 +89,7 @@ public class ResponseHandler implements Map {
 
     @Override
     public void clear() {
-
+        clear();
     }
 
     @Override
