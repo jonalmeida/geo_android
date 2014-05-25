@@ -20,8 +20,8 @@ public final class Message {
     // Each message needs to be constructed with these basic requirements
     public Message( String msg_text,
                     String nick,
-                    double  latitude,
-                    double  longitude,
+                    double latitude,
+                    double longitude,
                     long timestamp) {
         if(!_set) {
             setMsgText(msg_text);

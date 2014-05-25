@@ -32,9 +32,9 @@ public class ResponseHandler {
             Message message = new Message(
                     jsonObject.getString(MessageAttribute.MSG_TEXT),
                     jsonObject.getString(MessageAttribute.NICK),
-                    location.getDouble("lat"),
-                    location.getDouble("lon"),
-                    jsonObject.getLong("timestamp")
+                    location.getDouble(MessageAttribute.LAT),
+                    location.getDouble(MessageAttribute.LON),
+                    jsonObject.getLong(MessageAttribute.TIMESTAMP)
             );
             addToList(message);
         }

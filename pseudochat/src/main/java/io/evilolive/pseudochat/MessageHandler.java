@@ -47,7 +47,7 @@ public class MessageHandler implements MessageSender {
         res.put(MessageAttribute.NICK, message.getNick());
         res.put(MessageAttribute.LATITUDE, message.getLatitude());
         res.put(MessageAttribute.LONGITUDE, message.getLongitude());
-        res.put(MessageAttribute.TIMESTAMP, message.getTimestamp());
+        res.put(MessageAttribute.TIMESTAMP_LAST_MSG, message.getTimestamp());
 
         return res;
     }
@@ -88,7 +88,7 @@ public class MessageHandler implements MessageSender {
                 );
                 postParameters.add(
                         new BasicNameValuePair(
-                                MessageAttribute.TIMESTAMP, Float.toString(message.getTimestamp()))
+                                MessageAttribute.TIMESTAMP_LAST_MSG, Float.toString(message.getTimestamp()))
                 );
 
                 try {
