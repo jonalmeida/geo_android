@@ -22,7 +22,7 @@ public final class Message {
                     String nick,
                     double  latitude,
                     double  longitude,
-                    float  timestamp) {
+                    long timestamp) {
         if(!_set) {
             setMsgText(msg_text);
             setNick(nick);

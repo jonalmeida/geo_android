@@ -79,7 +79,6 @@ public class MainActivity extends ActionBarActivity {
             );
 
             something.send(my_message);
-            TextView text = (TextView) findViewById(R.id.textView_response_output);
         }
     }
 }

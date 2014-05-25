@@ -35,7 +35,7 @@ tools:context="com.example.myapplication2.app.MainActivity">
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceMedium"
-    android:text="Messages"
+    android:text="Response"
     android:id="@+id/textView_response"
     android:layout_gravity="left|center_vertical"
     android:layout_below="@+id/editText_nick"
@@ -50,7 +50,8 @@ tools:context="com.example.myapplication2.app.MainActivity">
     android:layout_gravity="right|top"
     android:layout_alignParentTop="true"
     android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true" />
+    android:layout_alignParentEnd="true"
+    android:layout_toRightOf="@+id/textView_enterNick" />
 
 <EditText
     android:layout_width="220dp"
@@ -60,7 +61,8 @@ tools:context="com.example.myapplication2.app.MainActivity">
     android:layout_gravity="left|bottom"
     android:layout_alignParentBottom="true"
     android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true" />
+    android:layout_alignParentEnd="true"
+    android:layout_toRightOf="@+id/button_send" />
 
 <ListView
     android:layout_width="225dp"

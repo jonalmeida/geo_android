@@ -16,7 +16,6 @@ import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -33,6 +32,7 @@ public class MessageHandler implements MessageSender {
     private HttpClient httpclient;
     private HttpPost httppost;
     private HttpResponse httpresponse;
+    private ResponseHandler responseHandler;
 
     public MessageHandler() {
         // Create a new HttpClient and Post Header
@@ -112,6 +112,7 @@ public class MessageHandler implements MessageSender {
                         JSONTokener tokener = new JSONTokener(builder.toString());
                         JSONObject finaljson = new JSONObject(tokener);
                         Log.v("JSON OUTPUT: ", finaljson.toString());
+                        ResponseHandler.getInstance().parseResponse(finaljson);
 
                     } catch (IOException e) {
                         e.printStackTrace();

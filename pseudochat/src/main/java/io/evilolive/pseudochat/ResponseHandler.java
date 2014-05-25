@@ -1,109 +1,48 @@
 package io.evilolive.pseudochat;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
 
 /**
  * Created by Jonathan Almeida on 2014-05-19.
  */
-public class ResponseHandler implements Map {
+public class ResponseHandler {
     private static ResponseHandler ourInstance = new ResponseHandler();
-
+    private ArrayList mainList = new ArrayList<Message>();
     public static ResponseHandler getInstance() {
         return ourInstance;
     }
 
-    private ResponseHandler(JSONObject resp) {
-        getInstance().parseResponse(resp);
+    private ResponseHandler() {}
+
+    public void parseResponse(JSONObject resp) throws JSONException {
+        ArrayList<JSONObject> tmp = new ArrayList<JSONObject>();
+
+        JSONArray someArray = new JSONArray(resp.getJSONArray("posts").toString());
+        JSONObject location = new JSONObject(resp.getJSONObject("location").toString());
+        for (int i = 0; i < someArray.length(); i++) {
+            JSONObject jsonObject = someArray.getJSONObject(i);
+            tmp.add(jsonObject);
+            Log.v("item: ", jsonObject.toString());
+            Message message = new Message(
+                    jsonObject.getString(MessageAttribute.MSG_TEXT),
+                    jsonObject.getString(MessageAttribute.NICK),
+                    location.getDouble("lat"),
+                    location.getDouble("lon"),
+                    jsonObject.getLong("timestamp")
+            );
+            addToList(message);
+        }
+        Log.v("parseResponse OUTPUT: ", tmp.toString());
+
     }
 
-    private void parseResponse(JSONObject resp) {
-
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public Object get(Object o) {
-        return null;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public Set keySet() {
-        return null;
-    }
-
-    @Override
-    public Object put(long o, Message o2) {
-        return this.put(o, o2); // This can't be right..
-    }
-
-    @Override
-    public void putAll(Map map) { }
-
-    @Override
-    public Object remove(Object o) {
-        return null;
-    }
-
-    @Override
-    public int size() {
-        return 0;
-    }
-
-    @Override
-    public Collection values() {
-        return null;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    @Override
-    public void clear() {
-        clear();
-    }
-
-    @Override
-    public boolean containsKey(Object o) {
-        return false;
-    }
-
-    @Override
-    public boolean containsValue(Object o) {
-        return false;
-    }
-
-    @Override
-    public Set<Entry> entrySet() {
-        return null;
+    private void addToList(Message message) {
+        mainList.add(message);
     }
 }
