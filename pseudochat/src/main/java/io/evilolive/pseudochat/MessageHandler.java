@@ -32,7 +32,6 @@ public class MessageHandler implements MessageSender {
     private HttpClient httpclient;
     private HttpPost httppost;
     private HttpResponse httpresponse;
-    private ResponseHandler responseHandler;
 
     public MessageHandler() {
         // Create a new HttpClient and Post Header
