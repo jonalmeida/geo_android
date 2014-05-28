@@ -14,7 +14,7 @@ public final class Message {
     private String _nick;
     private double _latitude;
     private double _longitude;
-    private float _timestamp;
+    private long _timestamp;
     private boolean _set;
 
     // Each message needs to be constructed with these basic requirements
@@ -50,7 +50,7 @@ public final class Message {
         this._longitude = _longitude;
     }
 
-    private void setTimestamp(float _timestamp) {
+    private void setTimestamp(long _timestamp) {
         this._timestamp = _timestamp;
     }
 

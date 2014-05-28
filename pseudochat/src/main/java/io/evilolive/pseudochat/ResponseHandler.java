@@ -7,19 +7,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by Jonathan Almeida on 2014-05-19.
  */
 public class ResponseHandler {
     private static ResponseHandler ourInstance = new ResponseHandler();
-    private ArrayList mainList = new ArrayList<Message>();
+    private LinkedList mainList = new LinkedList();
+    private long lastTimestamp = 0;
+    private ResponseHandler() {}
+
     public static ResponseHandler getInstance() {
         return ourInstance;
     }
-
-    private ResponseHandler() {}
-
     public void parseResponse(JSONObject resp) throws JSONException {
         ArrayList<JSONObject> tmp = new ArrayList<JSONObject>();
 
@@ -36,6 +37,8 @@ public class ResponseHandler {
                     location.getDouble(MessageAttribute.LON),
                     jsonObject.getLong(MessageAttribute.TIMESTAMP)
             );
+            if(i == 0)
+                setLastTimestamp(jsonObject.getLong(MessageAttribute.TIMESTAMP));
             addToList(message);
         }
         Log.v("parseResponse OUTPUT: ", tmp.toString());
@@ -45,4 +48,9 @@ public class ResponseHandler {
     private void addToList(Message message) {
         mainList.add(message);
     }
+
+    private void setLastTimestamp(long timestamp) { this.lastTimestamp = timestamp; }
+
+    public long getLastTimestamp() { return this.lastTimestamp; }
+
 }

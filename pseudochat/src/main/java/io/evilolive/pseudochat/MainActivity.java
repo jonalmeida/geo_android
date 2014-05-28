@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
                     nick.getText().toString(),
                     myLocation.getLocation().getLatitude(),
                     myLocation.getLocation().getLongitude(),
-                    0
+                    ResponseHandler.getInstance().getLastTimestamp()
             );
 
             something.send(my_message);
