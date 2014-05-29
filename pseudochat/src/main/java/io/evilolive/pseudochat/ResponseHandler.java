@@ -24,8 +24,8 @@ public class ResponseHandler {
     public void parseResponse(JSONObject resp) throws JSONException {
         ArrayList<JSONObject> tmp = new ArrayList<JSONObject>();
 
-        JSONArray someArray = new JSONArray(resp.getJSONArray("posts").toString());
-        JSONObject location = new JSONObject(resp.getJSONObject("location").toString());
+        JSONArray someArray = new JSONArray(resp.getJSONArray(ResponseAttribute.POSTS).toString());
+        JSONObject location = new JSONObject(resp.getJSONObject(ResponseAttribute.LOCATION).toString());
         for (int i = 0; i < someArray.length(); i++) {
             JSONObject jsonObject = someArray.getJSONObject(i);
             tmp.add(jsonObject);
