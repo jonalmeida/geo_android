@@ -14,7 +14,6 @@ import java.util.LinkedList;
  */
 public class ResponseHandler {
     private static ResponseHandler ourInstance = new ResponseHandler();
-    private LinkedList mainList = new LinkedList();
     private int insertPosition = 0;
     private long lastTimestamp = 0;
     private ResponseHandler() {}
@@ -43,13 +42,13 @@ public class ResponseHandler {
             addToList(getInsertPosition(), message);
         }
         // The end of the list is where the insertion of the reverse iteration should go
-        setInsertPosition(mainList.size());
+        setInsertPosition(MessageList.getInstance().size());    
         Log.v("parseResponse OUTPUT: ", tmp.toString());
 
     }
 
     private void addToList(int position, Message message) {
-        mainList.add(position, message);
+        MessageList.getInstance().add(position, message);
     }
 
     private void setLastTimestamp(long timestamp) { this.lastTimestamp = timestamp; }
