@@ -42,7 +42,7 @@ public class ResponseHandler {
             addToList(getInsertPosition(), message);
         }
         // The end of the list is where the insertion of the reverse iteration should go
-        setInsertPosition(MessageList.getInstance().size());    
+        setInsertPosition(MessageList.getInstance().size());
         Log.v("parseResponse OUTPUT: ", tmp.toString());
 
     }
