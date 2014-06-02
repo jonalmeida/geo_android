@@ -68,12 +68,12 @@ public class MsgRespAdapterView extends AdapterView {
 
     @Override
     public Adapter getAdapter() {
-        return null;
+        return this.adapter;
     }
 
     @Override
     public void setAdapter(Adapter adapter) {
-
+        this.adapter = adapter;
     }
 
     @Override
