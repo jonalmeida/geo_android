@@ -2,6 +2,7 @@ package io.evilolive.pseudochat;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -84,5 +85,26 @@ public class MsgRespAdapterView extends AdapterView {
             child.layout(left, top, left + top, top + height);
             top += height;
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (getChildCount() == 0) {
+            return false;
+        }
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mTouchStartY = (int)event.getY();
+                mListTopStart = getChildAt(0).getTop();
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                int scrolledDistance = (int)event.getY() - mTouchStartY;
+                mListTop = mListTopStart + scrolledDistance;
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }
