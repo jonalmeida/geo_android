@@ -50,12 +50,39 @@ public class MsgRespAdapterView extends AdapterView {
             int bottomEdge = 0;
             while (bottomEdge < getHeight() && position < adapter.getCount()) {
                 View newBottomChild = adapter.getView(position, null, this);
-//                addAndMeasureChild(newBottomChild);
+                addAndMeasureChild(newBottomChild);
                 bottomEdge += newBottomChild.getMeasuredHeight();
                 position++;
             }
         }
 
-//        positionItems();
+        positionItems();
+    }
+
+    private void addAndMeasureChild(View child) {
+        LayoutParams params = child.getLayoutParams();
+        if (params == null) {
+            params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        }
+
+        addViewInLayout(child, -1, params, true);
+
+        int itemWidth = getWidth();
+        child.measure(MeasureSpec.EXACTLY | itemWidth, MeasureSpec.UNSPECIFIED);
+    }
+
+    private void positionItems() {
+        int top = 0;
+
+        for(int index = 0; index< getChildCount(); index++) {
+            View child = getChildAt(index);
+
+            int width = child.getMeasuredWidth();
+            int height = child.getMeasuredHeight();
+            int left = (getWidth() - width) / 2;
+
+            child.layout(left, top, left + top, top + height);
+            top += height;
+        }
     }
 }
