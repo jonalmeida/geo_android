@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.lang.*;
+import java.util.Timer;
 
 public class MainActivity extends ActionBarActivity {
     private static final String MAIN_ACTIVITY = "MainActivity";
@@ -19,18 +20,19 @@ public class MainActivity extends ActionBarActivity {
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
-//    private CharSequence mTitle;
 
     private LocationHandler myLocation;
+    private Timer timer;
+    private MessageListView messageListView = new MessageListView();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        mTitle = getTitle();
-
         myLocation = new LocationHandler(this);
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new LocationUpdater(myLocation), 0, 60000);
     }
 
     @Override
@@ -48,6 +50,18 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        myLocation.removeUpdates();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        myLocation.resumeUpdates();
+        super.onResume();
     }
 
     public void sendMessage(View view) {
