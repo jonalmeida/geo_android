@@ -29,6 +29,9 @@ proguard/
 .idea/
 .gradle
 
+# Build directories
+build/
+
 # OS specific
 .DS_Store
 
