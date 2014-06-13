@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import java.lang.*;
 import java.util.Timer;
@@ -23,18 +25,24 @@ public class MainActivity extends ActionBarActivity {
 
     private LocationHandler myLocation;
     private Timer timer;
-    private MessageListView messageListView;
+    private ListView messageListView;
+    private ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        messageListView = new MessageListView();
-
         myLocation = new LocationHandler(this);
         timer = new Timer();
         timer.scheduleAtFixedRate(new LocationUpdater(myLocation), 0, 60000);
+        messageListView = (ListView) findViewById(R.id.listView_responses);
+
+        String[] monthsArray = { "JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY",
+                "AUG", "SEPT", "OCT", "NOV", "DEC" };
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, monthsArray);
+
+        messageListView.setAdapter(arrayAdapter);
     }
 
     @Override
