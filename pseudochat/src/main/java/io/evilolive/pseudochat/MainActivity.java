@@ -23,12 +23,14 @@ public class MainActivity extends ActionBarActivity {
 
     private LocationHandler myLocation;
     private Timer timer;
-    private MessageListView messageListView = new MessageListView();
+    private MessageListView messageListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        messageListView = new MessageListView();
 
         myLocation = new LocationHandler(this);
         timer = new Timer();
