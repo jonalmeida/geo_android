@@ -16,18 +16,13 @@ public class MessageListView extends Activity {
     String[] monthsArray = { "JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY",
             "AUG", "SEPT", "OCT", "NOV", "DEC" };
 
-    // Declare the UI components
-    private ListView monthsListView;
-
-    private ArrayAdapter arrayAdapter;
-
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Initialize the UI components
-        monthsListView = (ListView) findViewById(R.id.listView_responses);
+        ListView monthsListView = (ListView) findViewById(R.id.listView_responses);
         // For this moment, you have ListView where you can display a list.
         // But how can we put this data set to the list?
         // This is where you need an Adapter
@@ -36,7 +31,7 @@ public class MessageListView extends Activity {
         // resource - The resource ID for a layout file containing a layout
         // to use when instantiating views.
         // From the third parameter, you plugged the data set to adapter
-        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, monthsArray);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, monthsArray);
 
         // By using setAdapter method, you plugged the ListView with adapter
         monthsListView.setAdapter(arrayAdapter);
