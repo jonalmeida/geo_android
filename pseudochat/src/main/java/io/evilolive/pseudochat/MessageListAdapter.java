@@ -1,20 +1,28 @@
 package io.evilolive.pseudochat;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+
+import java.util.List;
 
 /**
  * Created by Jonathan Almeida on 2014-06-06.
  */
 
 
-public class MessageListAdapter extends BaseAdapter {
+public class MessageListAdapter extends ArrayAdapter {
 
     private static final String MSG_LIST_ADAPTER = "MessageListAdapter";
+
+    public MessageListAdapter(Context context, int resource, List objects) {
+        super(context, resource, objects);
+    }
 
     @Override
     public int getCount() {
@@ -23,7 +31,7 @@ public class MessageListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return MessageList.getInstance().get(i);
+        return MessageList.getInstance().get(i).getMsgText();
     }
 
     @Override

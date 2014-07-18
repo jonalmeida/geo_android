@@ -26,7 +26,7 @@ public class MainActivity extends ActionBarActivity {
     private LocationHandler myLocation;
     private Timer timer;
     private ListView messageListView;
-    private ArrayAdapter<String> arrayAdapter;
+    private MessageListAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,8 @@ public class MainActivity extends ActionBarActivity {
 
         String[] monthsArray = { "JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY",
                 "AUG", "SEPT", "OCT", "NOV", "DEC" };
-        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, monthsArray);
+
+        arrayAdapter = new MessageListAdapter(this, android.R.layout.simple_list_item_1, MessageList.getInstance());
 
         messageListView.setAdapter(arrayAdapter);
     }
